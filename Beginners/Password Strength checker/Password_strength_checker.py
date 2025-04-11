@@ -102,8 +102,9 @@ def calculate_entropy(password):
         charset_size += 32
     if re.search(r"\s", password):
         charset_size += 1   
-    
-    entropy = length * math.log2(charset_size)
+    if charset_size == 0:
+        return 0  # prevent log2(0)
+    entropy = round(len(password) * math.log2(charset_size), 2)
 
     if entropy < 28 :
         return "🟥 Very Week Password"
